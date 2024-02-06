@@ -52,7 +52,7 @@ yarn add tailwindcss
 
 ```bash
 git clone <URL_REPOSITORY>
-cd my-awesome-notes-app
+cd notes-app
 
 ```
 
