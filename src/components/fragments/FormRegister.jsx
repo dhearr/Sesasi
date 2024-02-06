@@ -1,16 +1,25 @@
 import InputForm from "../elements/Input";
 import Button from "../elements/Button";
-import { register } from "../../services/register.services";
+import { api } from "../../api/api";
 
 const FormRegister = () => {
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    const user = {
+
+    const data = {
       name: e.target.name.value,
       user: e.target.username.value,
       pass: e.target.password.value,
     };
-    register(user);
+
+    try {
+      const response = await api.post("/register", data);
+      console.log("register success");
+      console.log(response);
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("register failed", error);
+    }
   };
 
   return (

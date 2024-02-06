@@ -1,19 +1,22 @@
 import { Link } from "react-router-dom";
+import Layouts from "./Layouts";
 
 const AuthLayouts = (props) => {
   const { children, title, type } = props;
 
   return (
-    <div className="flex justify-center min-h-screen items-center">
-      <div className="w-full max-w-xs">
-        <h1 className="text-3xl font-bold mb-2 text-slate-900">{title}</h1>
-        <p className="font-medium text-slate-500 mb-8">
-          Welcome, Please enter your details
-        </p>
-        {children}
-        <Navigation type={type} />
+    <Layouts>
+      <div className="flex justify-center min-h-screen items-center">
+        <div className="w-full max-w-xs">
+          <h1 className="text-3xl font-bold mb-2 text-slate-900">{title}</h1>
+          <p className="font-medium text-slate-500 mb-8">
+            Welcome, Please enter your details
+          </p>
+          {children}
+          <Navigation type={type} />
+        </div>
       </div>
-    </div>
+    </Layouts>
   );
 };
 
