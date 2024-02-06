@@ -6,12 +6,31 @@ import { useEffect, useState } from "react";
 const NotesPage = () => {
   const [notes, setNotes] = useState([]);
   const [detailNote, setDetailNote] = useState([]);
-  const [editNote, setEditNote] = useState([]);
+  const [editNote, setEditNote] = useState("");
+  const [noteId, setNoteId] = useState("");
   const data = {
     name: localStorage.getItem("name"),
   };
 
-  const handleEdit = async (id) => {
+  const handleEdit = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (!editNote) {
+        console.log("edit note is empty");
+        return;
+      }
+      const updateNote = await api.put(`/notes/${noteId}`, {
+        note: editNote,
+      });
+
+      setEditNote(updateNote.data.note.note);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleGetEdit = async (id) => {
     try {
       const response = await api.get(`/notes/${id}`);
       setEditNote(response.data.note.note);
@@ -131,7 +150,7 @@ const NotesPage = () => {
               <Button onClick={() => handleDetailNote(note.note_id)}>
                 prview
               </Button>
-              <Button onClick={() => handleEdit(note.note_id)}>edit</Button>
+              <Button onClick={() => handleGetEdit(note.note_id)}>edit</Button>
             </li>
           ))}
         </ul>
@@ -139,13 +158,13 @@ const NotesPage = () => {
           <h1>{detailNote}</h1>
         </div>
         <div>
-          <form>
+          <form onSubmit={handleEdit}>
             <InputForm
               label="Title"
-              value={editNote}
+              defaultValue={editNote}
               onChange={(e) => setEditNote(e.target.value)}
             />
-            <Button>Submit Edit</Button>
+            <Button type="submit">Submit Edit</Button>
           </form>
         </div>
       </div>

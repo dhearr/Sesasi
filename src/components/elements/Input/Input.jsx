@@ -1,5 +1,5 @@
 const Input = (props) => {
-  const { type, placeholder, name, value } = props;
+  const { type, placeholder, name, defaultValue } = props;
 
   return (
     <input
@@ -8,7 +8,7 @@ const Input = (props) => {
       placeholder={placeholder}
       name={name}
       id={name}
-      value={value}
+      defaultValue={defaultValue}
     />
   );
 };
